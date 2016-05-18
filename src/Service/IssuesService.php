@@ -17,7 +17,7 @@ class IssuesService extends Service {
         parent::__construct($root, 'issues');
     }
 
-    public function getAll($param) {
+    public function getAll(array $param = []) {
         return $this->get(null, $param);
     }
 
@@ -30,15 +30,15 @@ class IssuesService extends Service {
     }
 
     public function create($data) {
-        return $this->post($data);
+        return $this->post(null, [], $data);
     }
 
     public function edit($id, $data) {
-        return $this->put($id, $data);
+        return $this->put($id, [], $data);
     }
 
     public function editPartially($id, $data) {
-        return $this->patch($id, $data);
+        return $this->patch($id, [], $data);
     }
 
     public function remove($id) {
@@ -82,11 +82,11 @@ class IssuesService extends Service {
     }
 
     public function editAttachment($id, $data) {
-        return $this->put($id, $data);
+        return $this->put($id, [], $data);
     }
 
     public function editAttachmentPartially($id, $data) {
-        return $this->patch($id, $data);
+        return $this->patch($id, [], $data);
     }
 
     public function deleteAttachment($id) {

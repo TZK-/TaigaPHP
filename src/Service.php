@@ -32,22 +32,22 @@ abstract class Service {
 
     protected function post($url, array $params = [], array $data = []) {
         $url = $url ? '/' . $url : '';
-        return $this->root->request('POST', sprintf("%s/%s?%s", $this->prefix, $url, http_build_query($params)), $data);
+        return $this->root->request('POST', sprintf("%s%s?%s", $this->prefix, $url, http_build_query($params)), $data);
     }
 
     protected function put($url, array $params = [], array $data = []) {
         $url = $url ? '/' . $url : '';
-        return $this->root->request('PUT', sprintf("%s/%s?%s", $this->prefix, $url, http_build_query($params)), $data);
+        return $this->root->request('PUT', sprintf("%s%s?%s", $this->prefix, $url, http_build_query($params)), $data);
     }
 
     protected function patch($url, array $params = [], array $data = []) {
         $url = $url ? '/' . $url : '';
-        return $this->root->request('PATCH', sprintf("%s/%s?%s", $this->prefix, $url, http_build_query($params)), $data);
+        return $this->root->request('PATCH', sprintf("%s%s?%s", $this->prefix, $url, http_build_query($params)), $data);
     }
 
     protected function delete($url, array $params = []) {
         $url = $url ? '/' . $url : '';
-        return $this->root->request('DELETE', sprintf("%s/%s?%s", $this->prefix, $url, http_build_query($params)));
+        return $this->root->request('DELETE', sprintf("%s%s?%s", $this->prefix, $url, http_build_query($params)));
     }
 
 }

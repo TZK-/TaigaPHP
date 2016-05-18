@@ -11,7 +11,7 @@ abstract class RestClient {
     /**
      * @var Curl
      */
-    private $curl;
+    protected $curl;
 
     /**
      * @var the API base URL
@@ -28,28 +28,10 @@ abstract class RestClient {
         $this->baseUrl = $baseUrl;
         $this->curl = new Curl();
         $this->curl->setHeader('Content-Type', 'application/json');
-        $this->curl->setHeader('Authorization', 'Bearer ' . $token);
         $this->curl->setUserAgent(self::USER_AGENT);
         $this->curl->setOpt(CURLOPT_SSL_VERIFYPEER, true);
     }
 
-    /**
-     * Get the Taiga auth token
-     *
-     * @param $baseUrl the taiga API base url
-     * @param array $credentials the credentials used to generete the token
-     *
-     * @return string the auth token
-     * @throws \HttpRequestException if a request error occurred
-     */
-    public static function getAuthToken($baseUrl, array $credentials) {
-        $curl = new Curl();
-        $curl->post($baseUrl . '/auth', $credentials);
-        if ($curl->error)
-            throw new \HttpRequestException(self::getErrorMessage($curl));
-
-        return $curl->response->auth_token;
-    }
 
     /**
      * Generate a string in case of request errors
@@ -58,8 +40,8 @@ abstract class RestClient {
      *
      * @return string
      */
-    private static function getErrorMessage(Curl $curl) {
-        return 'Error ' . $curl->errorCode . ': ' . $curl->errorMessage;
+    protected static function getErrorMessage(Curl $curl) {
+        return 'Error ' . $curl->errorCode . ' on page' . $curl->effectiveUrl . ' : ' . $curl->errorMessage;
     }
 
     /**
@@ -69,14 +51,22 @@ abstract class RestClient {
      * @param string $url the url used to send the request
      * @param array $data the data to send with the request
      *
-     * @return \StdClass
+     * @return array|\StdClass
      * @throws \Exception
      */
     public function request($method, $url, array $data = []) {
         $this->curl->{strtolower($method)}($this->baseUrl . $url, $data);
         if ($this->curl->error)
             throw new \Exception(self::getErrorMessage($this->curl));
+
         return $this->curl->response;
+    }
+
+    /**
+     * @return Curl
+     */
+    public function getCurl() {
+        return $this->curl;
     }
 
 }
