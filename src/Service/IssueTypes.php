@@ -5,7 +5,7 @@ namespace Taiga\Service;
 
 use Taiga\Service;
 
-class IssueTypesService extends Service
+class IssueTypes extends Service
 {
 
     public function __construct($root)

@@ -32,24 +32,10 @@ The wrapper has a function to help you and you can just do like the code below o
         echo Taiga\Taiga::getAuthToken($baseUrl, $credentials);
     ?>
 ```
-# Example
 
-## Get issues
-``` php
-    <?php
-        $taiga = new Taiga\Taiga($baseUrl, $auth_token);
-        $issues = $taiga->issues->getAll(['project' => $projectId]);
-    ?>
-```
-## Create issue
-``` php
-    <?php
-        $issues = $taiga->issues->create(['project' => $projectId, 'subject' => 'My super issue']);
-    ?>
-```
 # Register a new service
 
-The wrapper is based on 'Services' which wrap the API.
+The wrapper is based on 'Services' which wrap the API calls.
 ``` php
     <?php
 
@@ -97,44 +83,24 @@ The wrapper is based on 'Services' which wrap the API.
         }
     }
 ```
-As you can see, it is very simple to add your own methods. The only thing you need is to create a new service and to register this one into the Taiga.php class and create a public attribute to access to the service.
+As you can see, it is very simple to add your own methods and interact with the API itself.
+If you wanna add new services, the only thing you have to do is to create a new class inside the Service folder.
+The TaigaPHP wrapper will automatically load the service for you and it will be accessible from an attribute which has the same name as your service.
 
+If you add a Issues.php class inside the Service folder, you will be able to use it like this
+
+# Example
+
+## Get issues
 ``` php
     <?php
-
-    namespace Taiga;
-    
-    class Taiga extends RestClient {
-    
-        public $issues;
-        public $issueStatuses;
-        public $issueTypes;
-        public $priorities;
-        public $projects;
-        public $severities;
-        public $users;
-        // ...
-        
-        /**
-         * Taiga constructor.
-         *
-         * @param $baseUrl the API base URL
-         * @param $token the public API token
-         *
-         * @throws Exception
-         */
-        public function __construct($baseUrl, $token) {
-            parent::__construct($baseUrl, $token);
-            $this->curl->setHeader('Authorization', 'Bearer ' . $token);
-            
-            // Add service names
-            $services = ['issues', 'issueStatuses', 'issueTypes', 'priorities', 'projects', 'severities', 'users'];
-            foreach ($services as $service) {
-                $class = 'Taiga\\Service\\' . ucwords($service) . 'Service';
-                $this->{$service} = new $class($this);
-            }
-        }
-        
-        // ...
-    }
+        $taiga = new Taiga\Taiga($baseUrl, $auth_token);
+        $issues = $taiga->issues->getAll(['project' => $projectId]); // Access with the 'issue' attribute
+    ?>
+```
+## Create issue
+``` php
+    <?php
+        $issues = $taiga->issues->create(['project' => $projectId, 'subject' => 'My super issue']);
+    ?>
 ```

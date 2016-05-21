@@ -5,7 +5,7 @@ namespace Taiga\Service;
 
 use Taiga\Service;
 
-class PrioritiesService extends Service
+class Severities extends Service
 {
 
     /**
@@ -14,7 +14,7 @@ class PrioritiesService extends Service
      */
     public function __construct($root)
     {
-        parent::__construct($root, 'priorities');
+        parent::__construct($root, 'severities');
     }
 
     /**
@@ -23,9 +23,9 @@ class PrioritiesService extends Service
      *
      * @return \stdClass[]
      */
-    public function getList($params = [])
+    public function getList($param = [])
     {
-        $this->get(null, $params);
+        return $this->get(null, $param);
     }
 
     /**
@@ -38,3 +38,4 @@ class PrioritiesService extends Service
     }
 
 }
+

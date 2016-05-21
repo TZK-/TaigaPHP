@@ -5,7 +5,7 @@ namespace Taiga\Service;
 
 use Taiga\Service;
 
-class UsersService extends Service
+class Users extends Service
 {
 
     /**

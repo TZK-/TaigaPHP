@@ -4,13 +4,7 @@ namespace Taiga;
 
 class Taiga extends RestClient {
 
-    public $issues;
-    public $issueStatuses;
-    public $issueTypes;
-    public $priorities;
-    public $projects;
-    public $severities;
-    public $users;
+    private $services = [];
 
     /**
      * Taiga constructor.
@@ -23,11 +17,13 @@ class Taiga extends RestClient {
     public function __construct($baseUrl, $token) {
         parent::__construct($baseUrl, $token);
         $this->curl->setHeader('Authorization', 'Bearer ' . $token);
-        
-        $services = ['issues', 'issueStatuses', 'issueTypes', 'priorities', 'projects', 'severities', 'users'];
-        foreach ($services as $service) {
-            $class = 'Taiga\\Service\\' . ucwords($service) . 'Service';
-            $this->{$service} = new $class($this);
+
+        foreach (glob(__DIR__ . '/Service/*.php') as $file) {
+            $attr = lcfirst(basename($file, '.php'));
+            $class = 'Taiga\\Service\\' . basename($file, '.php');
+
+            if(class_exists($class))
+                $this->services[$attr] = new $class($this);
         }
     }
 
@@ -47,6 +43,11 @@ class Taiga extends RestClient {
             throw new \HttpRequestException(self::getErrorMessage($curl));
 
         return $curl->response->auth_token;
+    }
+
+    function __get($name) {
+        if(isset($this->services[$name])) return $this->services[$name];
+        throw new \Exception("The service $name is not defined");
     }
 
 }
