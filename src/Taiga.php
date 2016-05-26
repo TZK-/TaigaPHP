@@ -2,6 +2,8 @@
 
 namespace Taiga;
 
+use Taiga\Exceptions\TaigaException;
+
 class Taiga extends RestClient {
 
     private $services = [];
@@ -18,9 +20,9 @@ class Taiga extends RestClient {
         parent::__construct($baseUrl, $token);
         $this->curl->setHeader('Authorization', 'Bearer ' . $token);
 
-        foreach (glob(__DIR__ . '/Service/*.php') as $file) {
+        foreach (glob(__DIR__ . '/Services/*.php') as $file) {
             $attr = lcfirst(basename($file, '.php'));
-            $class = 'Taiga\\Service\\' . basename($file, '.php');
+            $class = 'Taiga\\Services\\' . basename($file, '.php');
 
             if(class_exists($class))
                 $this->services[$attr] = new $class($this);
@@ -34,13 +36,13 @@ class Taiga extends RestClient {
      * @param array $credentials the credentials used to generete the token
      *
      * @return string the auth token
-     * @throws \HttpRequestException if a request error occurred
+     * @throws TaigaException
      */
     public static function getAuthToken($baseUrl, array $credentials) {
         $curl = new Curl();
         $curl->post($baseUrl . '/auth', $credentials);
         if ($curl->error)
-            throw new \HttpRequestException(self::getErrorMessage($curl));
+            throw new TaigaException(self::getErrorMessage($curl));
 
         return $curl->response->auth_token;
     }

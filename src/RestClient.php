@@ -3,6 +3,7 @@
 namespace Taiga;
 
 use Curl\Curl;
+use Taiga\Exceptions\TaigaException;
 
 abstract class RestClient {
 
@@ -32,18 +33,6 @@ abstract class RestClient {
         $this->curl->setOpt(CURLOPT_SSL_VERIFYPEER, true);
     }
 
-
-    /**
-     * Generate a string in case of request errors
-     *
-     * @param Curl $curl the curl request
-     *
-     * @return string
-     */
-    protected static function getErrorMessage(Curl $curl) {
-        return 'Error ' . $curl->errorCode . ' on page' . $curl->effectiveUrl . ' : ' . $curl->errorMessage;
-    }
-
     /**
      * Send a HTTP request to a given URL with given data
      *
@@ -57,9 +46,20 @@ abstract class RestClient {
     public function request($method, $url, array $data = []) {
         $this->curl->{strtolower($method)}($this->baseUrl . $url, $data);
         if ($this->curl->error)
-            throw new \Exception(self::getErrorMessage($this->curl));
+            throw new TaigaException(self::getErrorMessage($this->curl));
 
         return $this->curl->response;
+    }
+
+    /**
+     * Generate a string in case of request errors
+     *
+     * @param Curl $curl the curl request
+     *
+     * @return string
+     */
+    protected static function getErrorMessage(Curl $curl) {
+        return 'Error ' . $curl->errorCode . ' on page' . $curl->effectiveUrl . ' : ' . $curl->errorMessage;
     }
 
     /**

@@ -1,9 +1,9 @@
 <?php
 
-namespace Taiga\Service;
+namespace Taiga\Services;
 
 
-use Taiga\Service;
+use Taiga\Services;
 
 class Issues extends Service {
 

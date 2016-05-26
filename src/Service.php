@@ -15,7 +15,7 @@ abstract class Service {
     private $root;
 
     /**
-     * Service constructor.
+     * Services constructor.
      *
      * @param RestClient $root the API root object
      * @param $prefix

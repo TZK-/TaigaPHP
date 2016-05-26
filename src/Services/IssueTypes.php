@@ -1,28 +1,19 @@
 <?php
 
-namespace Taiga\Service;
+namespace Taiga\Services;
 
 
-use Taiga\Service;
+use Taiga\Services;
 
-class IssueStatuses extends Service
+class IssueTypes extends Service
 {
 
-    /**
-     * Projects Endpoint constructor.
-     * @param Api $root
-     */
     public function __construct($root)
     {
-        parent::__construct($root, 'issue-statuses');
+        parent::__construct($root, 'issue-types');
     }
 
-    /**
-     * @param array $data
-     *
-     * @return \stdClass[]
-     */
-    public function getList(array $param = [])
+    public function getList(array $param)
     {
         return $this->get(null, $param);
     }
@@ -30,7 +21,7 @@ class IssueStatuses extends Service
     public function create(array $data) {
         return $this->post(null, [], $data);
     }
-    
+
     public function getById($id)
     {
         return $this->get($id);
@@ -40,11 +31,16 @@ class IssueStatuses extends Service
         return $this->put($id, [], $data);
     }
 
-    public function editPartially($id, array $data) {
-        return $this->patch($id, [], $data);
-    }
-
     public function remove($id) {
         return $this->delete($id);
     }
+
+    public function vote($id) {
+        return $this->post(sprintf('%s/upvote', $id));
+    }
+
+    public function bulkUpdateOrder(array $data) {
+        return $this->post('bulk_update_order', [], $data);
+    }
 }
+
