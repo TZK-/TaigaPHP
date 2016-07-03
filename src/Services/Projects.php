@@ -3,7 +3,7 @@
 namespace Taiga\Services;
 
 
-use Taiga\Services;
+use Taiga\Service;
 
 class Projects extends Service
 {
@@ -231,4 +231,3 @@ class Projects extends Service
         $this->put($id, [], $data);
     }
 }
-

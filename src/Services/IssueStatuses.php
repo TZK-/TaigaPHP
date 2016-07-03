@@ -3,7 +3,7 @@
 namespace Taiga\Services;
 
 
-use Taiga\Services;
+use Taiga\Service;
 
 class IssueStatuses extends Service
 {
@@ -30,7 +30,7 @@ class IssueStatuses extends Service
     public function create(array $data) {
         return $this->post(null, [], $data);
     }
-    
+
     public function getById($id)
     {
         return $this->get($id);

@@ -3,7 +3,7 @@
 namespace Taiga\Services;
 
 
-use Taiga\Services;
+use Taiga\Service;
 
 class Severities extends Service
 {
@@ -38,4 +38,3 @@ class Severities extends Service
     }
 
 }
-

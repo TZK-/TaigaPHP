@@ -3,7 +3,7 @@
 namespace Taiga\Services;
 
 
-use Taiga\Services;
+use Taiga\Service;
 
 class Issues extends Service {
 
@@ -76,7 +76,7 @@ class Issues extends Service {
     public function createAttachment($data) {
         $this->post('attachments', $data);
     }
-    
+
     public function getAttachment($id) {
         return $this->get(sprintf("%s/%s", 'attachments', $id));
     }

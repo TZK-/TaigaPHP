@@ -3,7 +3,7 @@
 namespace Taiga\Services;
 
 
-use Taiga\Services;
+use Taiga\Service;
 
 class IssueTypes extends Service
 {
@@ -43,4 +43,3 @@ class IssueTypes extends Service
         return $this->post('bulk_update_order', [], $data);
     }
 }
-

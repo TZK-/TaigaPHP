@@ -3,7 +3,7 @@
 namespace Taiga\Services;
 
 
-use Taiga\Services;
+use Taiga\Service;
 
 class Users extends Service
 {
@@ -29,4 +29,3 @@ class Users extends Service
         return $this->get(null, $param);
     }
 }
-
