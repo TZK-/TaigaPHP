@@ -1,14 +1,19 @@
 {
-  "name": "tzk/taiga-php",
-  "description": "A PHP wrapper for the Taiga.io API",
-  "license": "MIT",
-  "require": {
-    "php": "~5.3|~7.0",
-    "php-curl-class/php-curl-class": "^4.11"
-  },
-  "autoload": {
-    "psr-4": {
-      "TZK\\Taiga\\": "src/"
+    "name": "tzk/taiga-php",
+    "description": "A PHP wrapper for the Taiga.io API",
+    "license": "MIT",
+    "require": {
+        "php": "~5.3|~7.0",
+        "php-curl-class/php-curl-class": "^4.11"
+    },
+    "autoload": {
+        "psr-4": {
+          "TZK\\Taiga\\": "src/"
+        }
+    },
+    "extra": {
+       "branch-alias": {
+           "dev-master": "1.0.4-dev"
+       }
     }
-  }
 }
