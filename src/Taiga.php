@@ -1,8 +1,8 @@
 <?php
 
-namespace Taiga;
+namespace TZK\Taiga;
 
-use Taiga\Exceptions\TaigaException;
+use TZK\Taiga\Exceptions\TaigaException;
 
 class Taiga extends RestClient {
 
@@ -22,7 +22,7 @@ class Taiga extends RestClient {
 
         foreach (glob(__DIR__ . '/Services/*.php') as $file) {
             $attr = lcfirst(basename($file, '.php'));
-            $class = 'Taiga\\Services\\' . basename($file, '.php');
+            $class = 'TZK\\Taiga\\Services\\' . basename($file, '.php');
 
             if(class_exists($class))
                 $this->services[$attr] = new $class($this);
@@ -47,9 +47,13 @@ class Taiga extends RestClient {
         return $curl->response->auth_token;
     }
 
-    function __get($name) {
+    public function __call($name, $params = []) {
+        return $this->getService($name);
+    }
+
+    private function getService($name) {
         if(isset($this->services[$name])) return $this->services[$name];
-        throw new \Exception("The service $name is not defined");
+        throw new TaigaException("The service $name is not defined");
     }
 
 }

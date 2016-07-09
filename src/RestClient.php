@@ -1,9 +1,9 @@
 <?php
 
-namespace Taiga;
+namespace TZK\Taiga;
 
 use Curl\Curl;
-use Taiga\Exceptions\TaigaException;
+use TZK\Taiga\Exceptions\TaigaException;
 
 abstract class RestClient {
 

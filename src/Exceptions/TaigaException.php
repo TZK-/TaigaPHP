@@ -1,9 +1,10 @@
 <?php
 
-namespace Taiga\Exceptions;
+namespace TZK\Taiga\Exceptions;
 
+use Exception;
 
-class TaigaException extends \Exception {
+class TaigaException extends Exception {
 
 
     /**

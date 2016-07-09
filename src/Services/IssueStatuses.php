@@ -1,9 +1,9 @@
 <?php
 
-namespace Taiga\Services;
+namespace TZK\Taiga\Services;
 
 
-use Taiga\Service;
+use TZK\Taiga\Service;
 
 class IssueStatuses extends Service
 {

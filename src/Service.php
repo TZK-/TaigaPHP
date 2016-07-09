@@ -1,6 +1,6 @@
 <?php
 
-namespace Taiga;
+namespace TZK\Taiga;
 
 abstract class Service {
 

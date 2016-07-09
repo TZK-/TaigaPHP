@@ -1,10 +1,10 @@
 <?php
 
-namespace Taiga\Services;
+namespace TZK\Taiga\Services;
 
 
-use Taiga\RestClient;
-use Taiga\Service;
+use TZK\Taiga\RestClient;
+use TZK\Taiga\Service;
 
 class Resolvers extends Service {
 
