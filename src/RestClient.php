@@ -24,11 +24,13 @@ abstract class RestClient {
      *
      * @param $baseUrl the API base URL
      * @param $token the public API token
+     * @param $language the language to be used when calling the API
      */
-    public function __construct($baseUrl, $token) {
+    public function __construct($baseUrl, $token, $language = "en") {
         $this->baseUrl = $baseUrl;
         $this->curl = new Curl();
         $this->curl->setHeader('Content-Type', 'application/json');
+        $this->curl->setHeader('Accept-Language', $language);
         $this->curl->setUserAgent(self::USER_AGENT);
         $this->curl->setOpt(CURLOPT_SSL_VERIFYPEER, true);
     }
@@ -59,7 +61,7 @@ abstract class RestClient {
      * @return string
      */
     protected static function getErrorMessage(Curl $curl) {
-        return 'Error ' . $curl->errorCode . ' on page' . $curl->effectiveUrl . ' : ' . $curl->errorMessage;
+        return 'Error ' . $curl->errorCode . ' - ' . $curl->effectiveUrl . ' : ' . $curl->errorMessage;
     }
 
     /**
