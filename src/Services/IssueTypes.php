@@ -3,12 +3,13 @@
 namespace TZK\Taiga\Services;
 
 
+use TZK\Taiga\RestClient;
 use TZK\Taiga\Service;
 
 class IssueTypes extends Service
 {
 
-    public function __construct($root)
+    public function __construct(RestClient $root)
     {
         parent::__construct($root, 'issue-types');
     }

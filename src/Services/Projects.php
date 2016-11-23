@@ -3,6 +3,7 @@
 namespace TZK\Taiga\Services;
 
 
+use TZK\Taiga\RestClient;
 use TZK\Taiga\Service;
 
 class Projects extends Service
@@ -12,7 +13,7 @@ class Projects extends Service
      * Projects Endpoint constructor.
      * @param Api $root
      */
-    public function __construct($root)
+    public function __construct(RestClient $root)
     {
         parent::__construct($root, 'projects');
     }
