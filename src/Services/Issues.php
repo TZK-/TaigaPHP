@@ -3,6 +3,7 @@
 namespace TZK\Taiga\Services;
 
 
+use TZK\Taiga\RestClient;
 use TZK\Taiga\Service;
 
 class Issues extends Service {
@@ -13,11 +14,11 @@ class Issues extends Service {
      *
      * @param RestClient $root
      */
-    public function __construct($root) {
+    public function __construct(RestClient $root) {
         parent::__construct($root, 'issues');
     }
 
-    public function getAll(array $param = []) {
+    public function getList(array $param = []) {
         return $this->get(null, $param);
     }
 
