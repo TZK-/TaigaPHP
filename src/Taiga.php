@@ -16,8 +16,8 @@ class Taiga extends RestClient {
      *
      * @throws Exception
      */
-    public function __construct($baseUrl, $token) {
-        parent::__construct($baseUrl, $token);
+    public function __construct($baseUrl, $token, $language = "en") {
+        parent::__construct($baseUrl, $token, $language);
         $this->curl->setHeader('Authorization', 'Bearer ' . $token);
 
         foreach (glob(__DIR__ . '/Services/*.php') as $file) {
