@@ -26,7 +26,7 @@ class Priorities extends Service
      */
     public function getList($params = [])
     {
-        $this->get(null, $params);
+        return $this->get(null, $params);
     }
 
     /**

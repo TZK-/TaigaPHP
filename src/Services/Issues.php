@@ -27,7 +27,7 @@ class Issues extends Service {
     }
 
     public function getByRef($param) {
-        $this->get('by_ref', $param);
+        return $this->get('by_ref', $param);
     }
 
     public function create($data) {
@@ -55,7 +55,7 @@ class Issues extends Service {
     }
 
     public function getVoters($id) {
-        $this->get(sprintf("%s/%s", $id, 'voters'));
+        return $this->get(sprintf("%s/%s", $id, 'voters'));
     }
 
     public function watch($id) {
@@ -75,7 +75,7 @@ class Issues extends Service {
     }
 
     public function createAttachment($data) {
-        $this->post('attachments', $data);
+        return $this->post('attachments', $data);
     }
 
     public function getAttachment($id) {

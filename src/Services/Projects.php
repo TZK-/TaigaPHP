@@ -31,7 +31,7 @@ class Projects extends Service
      */
     public function getList(array $param = [])
     {
-        $this->get(null, $param);
+        return $this->get(null, $param);
     }
 
     /**
@@ -130,7 +130,7 @@ class Projects extends Service
      */
     public function updateProjectsOrderForLoggedInUser($id, array $data)
     {
-        $this->post(sprintf('%s/bulk_update_order', $id), [], $data);
+        return $this->post(sprintf('%s/bulk_update_order', $id), [], $data);
     }
 
     /**
@@ -139,7 +139,7 @@ class Projects extends Service
      */
     public function like($id, array $data)
     {
-        $this->post(sprintf('%s/like', $id), [], $data);
+        return $this->post(sprintf('%s/like', $id), [], $data);
     }
 
     /**
@@ -148,7 +148,7 @@ class Projects extends Service
      */
     public function unlike($id, array $data)
     {
-        $this->post(sprintf('%s/unlike', $id), [], $data);
+        return $this->post(sprintf('%s/unlike', $id), [], $data);
     }
 
     /**
@@ -157,7 +157,7 @@ class Projects extends Service
      */
     public function watch($id, array $data)
     {
-        $this->post(sprintf('%s/watch', $id), [], $data);
+        return $this->post(sprintf('%s/watch', $id), [], $data);
     }
 
     /**
@@ -166,7 +166,7 @@ class Projects extends Service
      */
     public function unwatch($id, array $data)
     {
-        $this->post(sprintf('%s/unwatch', $id), [], $data);
+        return $this->post(sprintf('%s/unwatch', $id), [], $data);
     }
 
     /**
@@ -175,7 +175,7 @@ class Projects extends Service
      */
     public function createTemplate($id, array $data)
     {
-        $this->post(sprintf('%s/create_template', $id), [], $data);
+        return $this->post(sprintf('%s/create_template', $id), [], $data);
     }
 
     /**
@@ -184,7 +184,7 @@ class Projects extends Service
      */
     public function leave($id, array $data)
     {
-        $this->post(sprintf('%s/leave', $id), [], $data);
+        return $this->post(sprintf('%s/leave', $id), [], $data);
     }
 
     /**
@@ -193,7 +193,7 @@ class Projects extends Service
      */
     public function changeLogo($id, array $data)
     {
-        $this->post(sprintf('%s/change_logo', $id), [], $data);
+        return $this->post(sprintf('%s/change_logo', $id), [], $data);
     }
 
     /**
@@ -202,7 +202,7 @@ class Projects extends Service
      */
     public function removeLogo($id, array $data)
     {
-        $this->post(sprintf('%s/remove_logo', $id), [], $data);
+        return $this->post(sprintf('%s/remove_logo', $id), [], $data);
     }
 
     /**
@@ -211,7 +211,7 @@ class Projects extends Service
      */
     public function modifyPartiallyAProject($id, $data)
     {
-        $this->patch(sprintf('%s', $id), [], $data);
+        return $this->patch(sprintf('%s', $id), [], $data);
     }
 
     /**
@@ -220,7 +220,7 @@ class Projects extends Service
      */
     public function modifyPartiallyAProjectModulesConfiguration($id, array $data)
     {
-        $this->patch(sprintf('%s/modules', $id), [], $data);
+        return $this->patch(sprintf('%s/modules', $id), [], $data);
     }
 
     /**
@@ -229,6 +229,6 @@ class Projects extends Service
      */
     public function edit($id, array $data)
     {
-        $this->put($id, [], $data);
+        return $this->put($id, [], $data);
     }
 }
