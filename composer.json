@@ -10,10 +10,5 @@
         "psr-4": {
           "TZK\\Taiga\\": "src/"
         }
-    },
-    "extra": {
-       "branch-alias": {
-           "dev-master": "1.0.4-dev"
-       }
     }
 }
