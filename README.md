@@ -1,5 +1,8 @@
 # TaigaPHP
 
+[![Latest Stable Version](https://poser.pugx.org/tzk/taiga-php/version)](https://packagist.org/packages/tzk/taiga-php) [![Total Downloads](https://poser.pugx.org/tzk/taiga-php/downloads)](https://packagist.org/packages/tzk/taiga-php) [![License](https://poser.pugx.org/tzk/taiga-php/license)](https://packagist.org/packages/tzk/taiga-php)
+
+
 TaigaPHP is a PHP wrapper used to handle the Taiga.io API easily.
 
 (If you want to use this library with Laravel 5.x, take a look at https://github.com/TZK-/TaigaLaravel)
@@ -94,7 +97,11 @@ TaigaPHP will automatically load the service for you and it will be accessible f
 
 ## Get issue types
 ```php
-$taiga = new TZK\Taiga\Taiga($baseUrl, $auth_token);
+/* 
+ * You can specify the locale to use giving language code
+ * @see https://taigaio.github.io/taiga-doc/dist/api.html#object-locale-detail
+ */
+$taiga = new TZK\Taiga\Taiga($baseUrl, $auth_token, 'fr');
 
 // Access with the 'issueTypes' public method
 $issues = $taiga->issueTypes()->getList(['project' => $projectId]);
