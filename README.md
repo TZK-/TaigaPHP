@@ -87,9 +87,9 @@ class IssueTypes extends Service
     }
 }
 ```
-As you can see, it is very simple to added your own methods and interact with the API itself.
+As you can see, it is very simple to add your own methods and interact with the API itself.
 
-If you wanna add new services, the only thing you have to do is to create a new class inside the Service folder and extends the TZK\Taiga\Service class.
+If you wanna add new services, the only thing you have to do is to create a new class inside the Service folder and extends the **TZK\Taiga\Service** class.
 
 TaigaPHP will automatically load the service for you and it will be accessible from a public method which has the same name as your service.
 
