@@ -2,6 +2,7 @@
 
 namespace TZK\Taiga;
 
+use Curl\Curl;
 use TZK\Taiga\Exceptions\TaigaException;
 
 class Taiga extends RestClient {
