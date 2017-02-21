@@ -13,7 +13,7 @@ TaigaPHP has been written for PHP >=5.3 and and earlier versions and you need to
 
 To install the library, just run the command below:
 ```sh
-    composer install tzk/taiga-php
+    composer require tzk/taiga-php
 ```
 The Library has been added into your dependencies and ready to be used.
 
