@@ -2,15 +2,14 @@
 
 namespace TZK\Taiga\Services;
 
-
 use TZK\Taiga\RestClient;
 use TZK\Taiga\Service;
 
 class IssueStatuses extends Service
 {
-
     /**
      * Projects Endpoint constructor.
+     *
      * @param Api $root
      */
     public function __construct(RestClient $root)
@@ -28,7 +27,8 @@ class IssueStatuses extends Service
         return $this->get(null, $param);
     }
 
-    public function create(array $data) {
+    public function create(array $data)
+    {
         return $this->post(null, [], $data);
     }
 
@@ -37,15 +37,18 @@ class IssueStatuses extends Service
         return $this->get($id);
     }
 
-    public function edit($id, array $data) {
+    public function edit($id, array $data)
+    {
         return $this->put($id, [], $data);
     }
 
-    public function editPartially($id, array $data) {
+    public function editPartially($id, array $data)
+    {
         return $this->patch($id, [], $data);
     }
 
-    public function remove($id) {
+    public function remove($id)
+    {
         return $this->delete($id);
     }
 }

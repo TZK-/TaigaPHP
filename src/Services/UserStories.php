@@ -2,102 +2,121 @@
 
 namespace TZK\Taiga\Services;
 
-
 use TZK\Taiga\RestClient;
 use TZK\Taiga\Service;
 
-class UserStories extends Service {
-
-
+class UserStories extends Service
+{
     /**
      * IssuesService constructor.
      *
      * @param RestClient $root
      */
-    public function __construct(RestClient $root) {
+    public function __construct(RestClient $root)
+    {
         parent::__construct($root, 'userstories');
     }
 
-    public function getList(array $param = []) {
+    public function getList(array $param = [])
+    {
         return $this->get(null, $param);
     }
 
-    public function setCustomAttribute($userStoryId, $attrId, $value) {
-        return $this->patch(sprintf("%s/%s", 'custom-attributes-values', $userStoryId), [], [
+    public function setCustomAttribute($userStoryId, $attrId, $value)
+    {
+        return $this->patch(sprintf('%s/%s', 'custom-attributes-values', $userStoryId), [], [
             'attributes_values' => [$attrId => $value],
-            "version" => 1
+            'version'           => 1,
         ]);
     }
-    public function getById($id) {
+
+    public function getById($id)
+    {
         return $this->get($id);
     }
 
-    public function getByRef($param) {
+    public function getByRef($param)
+    {
         return $this->get('by_ref', $param);
     }
 
-    public function create($data) {
+    public function create($data)
+    {
         return $this->post(null, [], $data);
     }
 
-    public function edit($id, $data) {
+    public function edit($id, $data)
+    {
         return $this->put($id, [], $data);
     }
 
-    public function editPartially($id, $data) {
+    public function editPartially($id, $data)
+    {
         return $this->patch($id, [], $data);
     }
 
-    public function remove($id) {
+    public function remove($id)
+    {
         return $this->delete($id);
     }
 
-    public function upvote($id) {
-        return $this->post(sprintf("%s/%s", $id, 'upvote'));
+    public function upvote($id)
+    {
+        return $this->post(sprintf('%s/%s', $id, 'upvote'));
     }
 
-    public function downvote($id) {
-        return $this->post(sprintf("%s/%s", $id, 'downvote'));
+    public function downvote($id)
+    {
+        return $this->post(sprintf('%s/%s', $id, 'downvote'));
     }
 
-    public function getVoters($id) {
-        return $this->get(sprintf("%s/%s", $id, 'voters'));
+    public function getVoters($id)
+    {
+        return $this->get(sprintf('%s/%s', $id, 'voters'));
     }
 
-    public function watch($id) {
-        return $this->post(sprintf("%s/%s", $id, 'watch'));
+    public function watch($id)
+    {
+        return $this->post(sprintf('%s/%s', $id, 'watch'));
     }
 
-    public function unwatch($id) {
-        return $this->post(sprintf("%s/%s", $id, 'unwatch'));
+    public function unwatch($id)
+    {
+        return $this->post(sprintf('%s/%s', $id, 'unwatch'));
     }
 
-    public function getWatchers($id) {
-        return $this->get(sprintf("%s/%s", $id, 'watchers'));
+    public function getWatchers($id)
+    {
+        return $this->get(sprintf('%s/%s', $id, 'watchers'));
     }
 
-    public function getAttachments($param) {
+    public function getAttachments($param)
+    {
         return $this->get('attachments', $param);
     }
 
-    public function createAttachment($data) {
+    public function createAttachment($data)
+    {
         return $this->post('attachments', $data);
     }
 
-    public function getAttachment($id) {
-        return $this->get(sprintf("%s/%s", 'attachments', $id));
+    public function getAttachment($id)
+    {
+        return $this->get(sprintf('%s/%s', 'attachments', $id));
     }
 
-    public function editAttachment($id, $data) {
+    public function editAttachment($id, $data)
+    {
         return $this->put($id, [], $data);
     }
 
-    public function editAttachmentPartially($id, $data) {
+    public function editAttachmentPartially($id, $data)
+    {
         return $this->patch($id, [], $data);
     }
 
-    public function deleteAttachment($id) {
+    public function deleteAttachment($id)
+    {
         return $this->delete('attachments', $id);
     }
-
 }

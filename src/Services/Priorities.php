@@ -2,15 +2,14 @@
 
 namespace TZK\Taiga\Services;
 
-
 use TZK\Taiga\RestClient;
 use TZK\Taiga\Service;
 
 class Priorities extends Service
 {
-
     /**
      * Projects Endpoint constructor.
+     *
      * @param Api $root
      */
     public function __construct(RestClient $root)
@@ -31,11 +30,11 @@ class Priorities extends Service
 
     /**
      * @param $id
+     *
      * @return array
      */
     public function getById($id)
     {
         return $this->get($id);
     }
-
 }
