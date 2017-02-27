@@ -2,13 +2,11 @@
 
 namespace TZK\Taiga\Services;
 
-
 use TZK\Taiga\RestClient;
 use TZK\Taiga\Service;
 
 class IssueTypes extends Service
 {
-
     public function __construct(RestClient $root)
     {
         parent::__construct($root, 'issue-types');
@@ -19,7 +17,8 @@ class IssueTypes extends Service
         return $this->get(null, $param);
     }
 
-    public function create(array $data) {
+    public function create(array $data)
+    {
         return $this->post(null, [], $data);
     }
 
@@ -28,19 +27,23 @@ class IssueTypes extends Service
         return $this->get($id);
     }
 
-    public function edit($id, array $data) {
+    public function edit($id, array $data)
+    {
         return $this->put($id, [], $data);
     }
 
-    public function remove($id) {
+    public function remove($id)
+    {
         return $this->delete($id);
     }
 
-    public function vote($id) {
+    public function vote($id)
+    {
         return $this->post(sprintf('%s/upvote', $id));
     }
 
-    public function bulkUpdateOrder(array $data) {
+    public function bulkUpdateOrder(array $data)
+    {
         return $this->post('bulk_update_order', [], $data);
     }
 }

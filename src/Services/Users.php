@@ -2,15 +2,14 @@
 
 namespace TZK\Taiga\Services;
 
-
 use TZK\Taiga\RestClient;
 use TZK\Taiga\Service;
 
 class Users extends Service
 {
-
     /**
      * Users Endpoint constructor.
+     *
      * @param Api $root
      */
     public function __construct(RestClient $root)
@@ -26,7 +25,8 @@ class Users extends Service
         return $this->get('me');
     }
 
-    public function getList(array $param = []) {
+    public function getList(array $param = [])
+    {
         return $this->get(null, $param);
     }
 }

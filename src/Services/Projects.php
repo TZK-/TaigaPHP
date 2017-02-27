@@ -2,15 +2,14 @@
 
 namespace TZK\Taiga\Services;
 
-
 use TZK\Taiga\RestClient;
 use TZK\Taiga\Service;
 
 class Projects extends Service
 {
-
     /**
      * Projects Endpoint constructor.
+     *
      * @param Api $root
      */
     public function __construct(RestClient $root)
@@ -20,12 +19,12 @@ class Projects extends Service
 
     /**
      * @param array $data
-     * - member: member id
-     * - members: member ids
-     * - is_looking_for_people: the project is looking for new members
-     * - is_featured: the project has been highlighted by the instance staff
-     * - is_backlog_activated: backlog is active
-     * - is_kanban_activated: kanban is active
+     *                    - member: member id
+     *                    - members: member ids
+     *                    - is_looking_for_people: the project is looking for new members
+     *                    - is_featured: the project has been highlighted by the instance staff
+     *                    - is_backlog_activated: backlog is active
+     *                    - is_kanban_activated: kanban is active
      *
      * @return \stdClass[]
      */
@@ -36,6 +35,7 @@ class Projects extends Service
 
     /**
      * @param $id
+     *
      * @return array
      */
     public function getById($id)
@@ -45,6 +45,7 @@ class Projects extends Service
 
     /**
      * @param $slug
+     *
      * @return array
      */
     public function getBySlug($slug)
@@ -54,6 +55,7 @@ class Projects extends Service
 
     /**
      * @param $id
+     *
      * @return array
      */
     public function getProjectModulesConfiguration($id)
@@ -63,6 +65,7 @@ class Projects extends Service
 
     /**
      * @param $id
+     *
      * @return array
      */
     public function getProjectStats($id)
@@ -72,6 +75,7 @@ class Projects extends Service
 
     /**
      * @param $id
+     *
      * @return array
      */
     public function getProjectIssueStats($id)
@@ -81,6 +85,7 @@ class Projects extends Service
 
     /**
      * @param $id
+     *
      * @return array
      */
     public function getProjectIssueFiltersData($id)
@@ -90,6 +95,7 @@ class Projects extends Service
 
     /**
      * @param $id
+     *
      * @return array
      */
     public function getProjectTagsColors($id)
@@ -99,6 +105,7 @@ class Projects extends Service
 
     /**
      * @param $id
+     *
      * @return array
      */
     public function getFans($id)
@@ -108,6 +115,7 @@ class Projects extends Service
 
     /**
      * @param $id
+     *
      * @return array
      */
     public function getWatchers($id)
@@ -117,6 +125,7 @@ class Projects extends Service
 
     /**
      * @param $data
+     *
      * @return array
      */
     public function create(array $data)
