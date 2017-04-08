@@ -6,7 +6,7 @@ use TZK\Taiga\Exceptions\RequestException;
 
 abstract class Service
 {
-    protected static $ALLOWED_HTTP_METHODS = ['GET', 'POST', 'PUT', 'PATCH'];
+    protected static $ALLOWED_HTTP_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 
     /**
      * @var string
@@ -18,12 +18,6 @@ abstract class Service
      */
     private $taiga;
 
-    /**
-     * Services constructor.
-     *
-     * @param RestClient $taiga
-     * @param $prefix
-     */
     public function __construct(RestClient $taiga, $prefix)
     {
         $this->taiga = $taiga;
