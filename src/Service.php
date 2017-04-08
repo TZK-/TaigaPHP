@@ -2,8 +2,12 @@
 
 namespace TZK\Taiga;
 
+use TZK\Taiga\Exceptions\RequestException;
+
 abstract class Service
 {
+    protected static $ALLOWED_HTTP_METHODS = ['GET', 'POST', 'PUT', 'PATCH'];
+
     /**
      * @var string
      */
@@ -12,52 +16,38 @@ abstract class Service
     /**
      * @var Taiga
      */
-    private $root;
+    private $taiga;
 
     /**
      * Services constructor.
      *
-     * @param RestClient $root the API root object
+     * @param RestClient $taiga
      * @param $prefix
      */
-    public function __construct($root, $prefix)
+    public function __construct(RestClient $taiga, $prefix)
     {
-        $this->root = $root;
+        $this->taiga = $taiga;
         $this->prefix = $prefix;
     }
 
-    protected function get($url, array $params = [])
+    public function __call($method, $arguments) 
     {
-        $url = $url ? '/'.$url : '';
+        $method = strtoupper($method);
 
-        return $this->root->request('GET', sprintf('%s%s?%s', $this->prefix, $url, http_build_query($params)));
-    }
+        if(!in_array($method, static::$ALLOWED_HTTP_METHODS)) {
+            throw new RequestException(sprintf("The HTTP method '%s' is not allowed. The only allowed methods are %s.", 
+                $name,
+                implode(', ', static::$ALLOWED_HTTP_METHODS)
+            ));
+        }
 
-    protected function post($url, array $params = [], array $data = [])
-    {
-        $url = $url ? '/'.$url : '';
+        $url = isset($arguments[0]) ? '/'.$arguments[0] : '';
+        $params = isset($arguments[1]) ? $arguments[1] : [];
+        $data = isset($arguments[2]) ? $arguments[2] : [];
 
-        return $this->root->request('POST', sprintf('%s%s?%s', $this->prefix, $url, http_build_query($params)), $data);
-    }
-
-    protected function put($url, array $params = [], array $data = [])
-    {
-        $url = $url ? '/'.$url : '';
-
-        return $this->root->request('PUT', sprintf('%s%s?%s', $this->prefix, $url, http_build_query($params)), $data);
-    }
-
-    protected function patch($url, array $params = [], array $data = [])
-    {
-        $url = $url ? '/'.$url : '';
-
-        return $this->root->request('PATCH', sprintf('%s%s?%s', $this->prefix, $url, http_build_query($params)), $data);
-    }
-
-    protected function delete($url, array $params = [])
-    {
-        $url = $url ? '/'.$url : '';
-
-        return $this->root->request('DELETE', sprintf('%s%s?%s', $this->prefix, $url, http_build_query($params)));
+        return $this->taiga->request(
+            $method, 
+            sprintf('%s%s?%s', $this->prefix, $url, http_build_query($params), $data)
+        );
     }
 }
