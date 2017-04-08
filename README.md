@@ -44,16 +44,14 @@ The wrapper is based on 'Services' which wrap the API calls.
 
 namespace TZK\Taiga\Services;
 
-
 use TZK\Taiga\RestClient;
 use TZK\Taiga\Service;
 
 class IssueTypes extends Service
 {
-
-    public function __construct(RestClient $root)
+    public function __construct(RestClient $taiga)
     {
-        parent::__construct($root, 'issue-types');
+        parent::__construct($taiga, 'issue-types');
     }
 
     public function getList(array $param)
@@ -61,7 +59,8 @@ class IssueTypes extends Service
         return $this->get(null, $param);
     }
 
-    public function create(array $data) {
+    public function create(array $data)
+    {
         return $this->post(null, [], $data);
     }
 
@@ -70,22 +69,27 @@ class IssueTypes extends Service
         return $this->get($id);
     }
 
-    public function edit($id, array $data) {
+    public function edit($id, array $data)
+    {
         return $this->put($id, [], $data);
     }
 
-    public function remove($id) {
+    public function remove($id)
+    {
         return $this->delete($id);
     }
 
-    public function vote($id) {
+    public function vote($id)
+    {
         return $this->post(sprintf('%s/upvote', $id));
     }
 
-    public function bulkUpdateOrder(array $data) {
+    public function bulkUpdateOrder(array $data)
+    {
         return $this->post('bulk_update_order', [], $data);
     }
 }
+
 ```
 As you can see, it is very simple to add your own methods and interact with the API itself.
 
@@ -111,8 +115,23 @@ $issues = $taiga->issueTypes()->getList(['project' => $projectId]);
 // Access with the 'issues' public method
 $issues = $taiga->issues()->create(['project' => $projectId, 'subject' => 'My super issue']);
 ```
+# Supported features
+
+- Applications
+- Application Tokens
+- Epics
+- Issues
+- Issue Statuses
+- Issue Types
+- Priorities
+- Projects
+- Resolvers
+- Severities
+- Users
+- UserStories
+
 # Contributing
 
 TaigaPHP offers a great starting coverage, but there are some endpoints missing. 
 
-If you use this wrapper, please share if you added new endpoints / features by opening a new PR.
+If you use this wrapper, please share if you found bugs or added new endpoints / features by opening a new PR.
