@@ -7,9 +7,9 @@ use TZK\Taiga\Service;
 
 class Applications extends Service
 {
-    public function __construct(RestClient $root)
+    public function __construct(RestClient $taiga)
     {
-        parent::__construct($root, 'applications');
+        parent::__construct($taiga, 'applications');
     }
 
     public function getById($id)

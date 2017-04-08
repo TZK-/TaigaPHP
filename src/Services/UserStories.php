@@ -7,14 +7,9 @@ use TZK\Taiga\Service;
 
 class UserStories extends Service
 {
-    /**
-     * IssuesService constructor.
-     *
-     * @param RestClient $root
-     */
-    public function __construct(RestClient $root)
+    public function __construct(RestClient $taiga)
     {
-        parent::__construct($root, 'userstories');
+        parent::__construct($taiga, 'userstories');
     }
 
     public function getList(array $param = [])

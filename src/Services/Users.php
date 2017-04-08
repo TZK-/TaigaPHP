@@ -7,19 +7,11 @@ use TZK\Taiga\Service;
 
 class Users extends Service
 {
-    /**
-     * Users Endpoint constructor.
-     *
-     * @param Api $root
-     */
-    public function __construct(RestClient $root)
+    public function __construct(RestClient $taiga)
     {
-        parent::__construct($root, 'users');
+        parent::__construct($taiga, 'users');
     }
 
-    /**
-     * @return \stdClass
-     */
     public function getMe()
     {
         return $this->get('me');

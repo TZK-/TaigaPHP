@@ -7,9 +7,9 @@ use TZK\Taiga\Service;
 
 class ApplicationTokens extends Service
 {
-    public function __construct(RestClient $root)
+    public function __construct(RestClient $taiga)
     {
-        parent::__construct($root, 'application-tokens');
+        parent::__construct($taiga, 'application-tokens');
     }
 
     public function getAll()

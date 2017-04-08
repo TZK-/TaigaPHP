@@ -7,21 +7,11 @@ use TZK\Taiga\Service;
 
 class IssueStatuses extends Service
 {
-    /**
-     * Projects Endpoint constructor.
-     *
-     * @param Api $root
-     */
-    public function __construct(RestClient $root)
+    public function __construct(RestClient $taiga)
     {
-        parent::__construct($root, 'issue-statuses');
+        parent::__construct($taiga, 'issue-statuses');
     }
 
-    /**
-     * @param array $data
-     *
-     * @return \stdClass[]
-     */
     public function getList(array $param = [])
     {
         return $this->get(null, $param);

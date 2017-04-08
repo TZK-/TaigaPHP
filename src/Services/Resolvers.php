@@ -7,8 +7,8 @@ use TZK\Taiga\Service;
 
 class Resolvers extends Service
 {
-    public function __construct(RestClient $root)
+    public function __construct(RestClient $taiga)
     {
-        parent::__construct($root, 'resolvers');
+        parent::__construct($taiga, 'resolvers');
     }
 }

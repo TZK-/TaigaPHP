@@ -7,14 +7,9 @@ use TZK\Taiga\Service;
 
 class Epics extends Service
 {
-    /**
-     * IssuesService constructor.
-     *
-     * @param RestClient $root
-     */
-    public function __construct(RestClient $root)
+    public function __construct(RestClient $taiga)
     {
-        parent::__construct($root, 'epics');
+        parent::__construct($taiga, 'epics');
     }
 
     public function getList(array $param = [])

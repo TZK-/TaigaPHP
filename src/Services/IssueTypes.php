@@ -7,9 +7,9 @@ use TZK\Taiga\Service;
 
 class IssueTypes extends Service
 {
-    public function __construct(RestClient $root)
+    public function __construct(RestClient $taiga)
     {
-        parent::__construct($root, 'issue-types');
+        parent::__construct($taiga, 'issue-types');
     }
 
     public function getList(array $param)

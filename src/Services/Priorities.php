@@ -7,32 +7,16 @@ use TZK\Taiga\Service;
 
 class Priorities extends Service
 {
-    /**
-     * Projects Endpoint constructor.
-     *
-     * @param Api $root
-     */
-    public function __construct(RestClient $root)
+    public function __construct(RestClient $taiga)
     {
-        parent::__construct($root, 'priorities');
+        parent::__construct($taiga, 'priorities');
     }
 
-    /**
-     * @params array $params
-     *  - project: project id
-     *
-     * @return \stdClass[]
-     */
     public function getList($params = [])
     {
         return $this->get(null, $params);
     }
 
-    /**
-     * @param $id
-     *
-     * @return array
-     */
     public function getById($id)
     {
         return $this->get($id);
