@@ -7,7 +7,6 @@ use TZK\Taiga\Service;
 
 class Projects extends Service
 {
-    
     public function __construct(RestClient $taiga)
     {
         parent::__construct($taiga, 'projects');

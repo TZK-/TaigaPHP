@@ -24,12 +24,12 @@ abstract class Service
         $this->prefix = $prefix;
     }
 
-    public function __call($method, $arguments) 
+    public function __call($method, $arguments)
     {
         $method = strtoupper($method);
 
-        if(!in_array($method, static::$ALLOWED_HTTP_METHODS)) {
-            throw new RequestException(sprintf("The HTTP method '%s' is not allowed. The only allowed methods are %s.", 
+        if (!in_array($method, static::$ALLOWED_HTTP_METHODS)) {
+            throw new RequestException(sprintf("The HTTP method '%s' is not allowed. The only allowed methods are %s.",
                 $name,
                 implode(', ', static::$ALLOWED_HTTP_METHODS)
             ));
@@ -40,7 +40,7 @@ abstract class Service
         $data = isset($arguments[2]) ? $arguments[2] : [];
 
         return $this->taiga->request(
-            $method, 
+            $method,
             sprintf('%s%s?%s', $this->prefix, $url, http_build_query($params), $data)
         );
     }
