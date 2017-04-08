@@ -23,15 +23,12 @@ abstract class RestClient
      * RestClient constructor.
      *
      * @param $baseUrl the API base URL
-     * @param $token the public API token
-     * @param $language the language to be used when calling the API
      */
-    public function __construct($baseUrl, $token, $language = 'en')
+    public function __construct($baseUrl)
     {
         $this->baseUrl = $baseUrl;
         $this->curl = new Curl();
         $this->curl->setHeader('Content-Type', 'application/json');
-        $this->curl->setHeader('Accept-Language', $language);
         $this->curl->setUserAgent(self::USER_AGENT);
         $this->curl->setOpt(CURLOPT_SSL_VERIFYPEER, true);
     }
@@ -43,36 +40,25 @@ abstract class RestClient
      * @param string $url    the url used to send the request
      * @param array  $data   the data to send with the request
      *
-     * @throws \Exception
+     * @throws TaigaException
      *
-     * @return array|\StdClass
+     * @return array|StdClass
      */
     public function request($method, $url, array $data = [])
     {
         $this->curl->{strtolower($method)}($this->baseUrl.$url, $data);
         if ($this->curl->error) {
-            throw new TaigaException(self::getErrorMessage($this->curl));
+            throw new TaigaException(static::getErrorMessage($this->curl));
         }
         return $this->curl->response;
     }
 
-    /**
-     * Generate a string in case of request errors.
-     *
-     * @param Curl $curl the curl request
-     *
-     * @return string
-     */
-    protected static function getErrorMessage(Curl $curl)
+    protected static function getErrorMessage()
     {
-        return 'Error '.$curl->errorCode.' - '.$curl->effectiveUrl.' : '.$curl->errorMessage;
-    }
-
-    /**
-     * @return Curl
-     */
-    public function getCurl()
-    {
-        return $this->curl;
+        return sprintf('Error %s - %s: %s', 
+            $this->curl->errorCode, 
+            $this->curl->effectiveUrl, 
+            $this->curl->errorMessage
+        );
     }
 }
