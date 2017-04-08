@@ -53,12 +53,12 @@ abstract class RestClient
         return $this->curl->response;
     }
 
-    protected static function getErrorMessage()
+    protected static function getErrorMessage(Curl $curl)
     {
         return sprintf('Error %s - %s: %s', 
-            $this->curl->errorCode, 
-            $this->curl->effectiveUrl, 
-            $this->curl->errorMessage
+            $curl->errorCode, 
+            $curl->effectiveUrl, 
+            $curl->errorMessage
         );
     }
 }
