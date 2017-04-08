@@ -10,14 +10,6 @@ class Taiga extends RestClient
 {
     private $services = [];
 
-    /**
-     * Taiga constructor.
-     *
-     * @param $baseUrl the API base URL
-     * @param $token the public API token
-     *
-     * @throws Exception
-     */
     public function __construct($baseUrl, $token, $language = 'en')
     {
         parent::__construct($baseUrl, $token, $language);

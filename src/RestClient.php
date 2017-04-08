@@ -36,9 +36,9 @@ abstract class RestClient
     /**
      * Send a HTTP request to a given URL with given data.
      *
-     * @param string $method the request method: POST - GET - PUT - PATCH - DELETE
-     * @param string $url    the url used to send the request
-     * @param array  $data   the data to send with the request
+     * @param string $method
+     * @param string $url
+     * @param array  $data
      *
      * @throws TaigaException
      *
