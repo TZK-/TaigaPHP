@@ -50,14 +50,15 @@ abstract class RestClient
         if ($this->curl->error) {
             throw new TaigaException(static::getErrorMessage($this->curl));
         }
+
         return $this->curl->response;
     }
 
     protected static function getErrorMessage(Curl $curl)
     {
-        return sprintf('Error %s - %s: %s', 
-            $curl->errorCode, 
-            $curl->effectiveUrl, 
+        return sprintf('Error %s - %s: %s',
+            $curl->errorCode,
+            $curl->effectiveUrl,
             $curl->errorMessage
         );
     }

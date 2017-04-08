@@ -4,7 +4,6 @@ namespace TZK\Taiga;
 
 use Curl\Curl;
 use TZK\Taiga\Exceptions\TaigaException;
-use TZK\Taiga\Service;
 
 class Taiga extends RestClient
 {
@@ -22,7 +21,7 @@ class Taiga extends RestClient
 
             if (class_exists($class)) {
                 $instance = new $class($this);
-                if($instance instanceof Service) {
+                if ($instance instanceof Service) {
                     $this->services[lcfirst($basename)] = $instance;
                 }
             }
@@ -46,6 +45,7 @@ class Taiga extends RestClient
         if ($curl->error) {
             throw new TaigaException(static::getErrorMessage($curl));
         }
+
         return $curl->response->auth_token;
     }
 
