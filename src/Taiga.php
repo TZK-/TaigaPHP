@@ -4,6 +4,7 @@ namespace TZK\Taiga;
 
 use Curl\Curl;
 use TZK\Taiga\Exceptions\TaigaException;
+use TZK\Taiga\Service;
 
 class Taiga extends RestClient
 {
@@ -21,13 +22,17 @@ class Taiga extends RestClient
     {
         parent::__construct($baseUrl, $token, $language);
         $this->curl->setHeader('Authorization', 'Bearer '.$token);
+        $this->curl->setHeader('Accept-Language', $language);
 
-        foreach (glob(__DIR__.'/Services/*.php') as $file) {
-            $attr = lcfirst(basename($file, '.php'));
-            $class = 'TZK\\Taiga\\Services\\'.basename($file, '.php');
+        foreach (glob(__DIR__.'/Services/*.php') as $service) {
+            $basename = basename($service, '.php');
+            $class = 'TZK\\Taiga\\Services\\'.$basename;
 
             if (class_exists($class)) {
-                $this->services[$attr] = new $class($this);
+                $instance = new $class($this);
+                if($instance instanceof Service) {
+                    $this->services[lcfirst($basename)] = $instance;
+                }
             }
         }
     }
@@ -47,7 +52,7 @@ class Taiga extends RestClient
         $curl = new Curl();
         $curl->post($baseUrl.'/auth', $credentials);
         if ($curl->error) {
-            throw new TaigaException(self::getErrorMessage($curl));
+            throw new TaigaException(static::getErrorMessage($curl));
         }
         return $curl->response->auth_token;
     }
