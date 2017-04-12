@@ -30,7 +30,7 @@ abstract class Service
 
         if (!in_array($method, static::$ALLOWED_HTTP_METHODS)) {
             throw new RequestException(sprintf("The HTTP method '%s' is not allowed. The only allowed methods are %s.",
-                $name,
+                $method,
                 implode(', ', static::$ALLOWED_HTTP_METHODS)
             ));
         }
@@ -41,7 +41,8 @@ abstract class Service
 
         return $this->taiga->request(
             $method,
-            sprintf('%s%s?%s', $this->prefix, $url, http_build_query($params), $data)
+            sprintf('%s%s?%s', $this->prefix, $url, http_build_query($params)),
+            $data
         );
     }
 }
