@@ -2,6 +2,7 @@
     "name": "tzk/taiga-php",
     "description": "A PHP wrapper for the Taiga.io API",
     "license": "MIT",
+    "type": "package",
     "require": {
         "php": "~5.3|~7.0",
         "php-curl-class/php-curl-class": "^4.11"
