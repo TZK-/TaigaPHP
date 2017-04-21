@@ -7,17 +7,22 @@ use TZK\Taiga\Exceptions\TaigaException;
 
 class Taiga extends RestClient
 {
+
+    /**
+     * @var array
+     */
     private $services = [];
 
-    public function __construct($baseUrl, $token, $language = 'en')
+
+    public function __construct($baseUrl, $token = null, $language = 'en')
     {
-        parent::__construct($baseUrl, $token, $language);
-        $this->curl->setHeader('Authorization', 'Bearer '.$token);
-        $this->curl->setHeader('Accept-Language', $language);
+        parent::__construct($baseUrl);
+        $this->setAuthToken($token);
+        $this->setLanguage($language);
 
         foreach (glob(__DIR__.'/Services/*.php') as $service) {
             $basename = basename($service, '.php');
-            $class = 'TZK\\Taiga\\Services\\'.$basename;
+            $class    = 'TZK\\Taiga\\Services\\'.$basename;
 
             if (class_exists($class)) {
                 $instance = new $class($this);
@@ -28,11 +33,46 @@ class Taiga extends RestClient
         }
     }
 
+
+    /**
+     * Set authorization token.
+     *
+     * @param null|string $token
+     *
+     * @return $this
+     */
+    protected function setAuthToken($token = null)
+    {
+        if ( ! is_null($token)) {
+            $this->curl->setHeader('Authorization', 'Bearer '.$token);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Set language header.
+     *
+     * @param null|string $language
+     *
+     * @return $this
+     */
+    protected function setLanguage($language = null)
+    {
+        if ( ! is_null($language)) {
+            $this->curl->setHeader('Accept-Language', $language);
+        }
+
+        return $this;
+    }
+
+
     /**
      * Get the Taiga auth token.
      *
-     * @param $baseUrl the taiga API base url
-     * @param array $credentials the credentials used to generete the token
+     * @param       $baseUrl     the taiga API base url
+     * @param array $credentials the credentials used to generate the token
      *
      * @throws TaigaException
      *
@@ -49,10 +89,18 @@ class Taiga extends RestClient
         return $curl->response->auth_token;
     }
 
+
     public function __call($name, $params = [])
     {
+        if ($name === 'setAuthToken') {
+            return $this->setAuthToken(! empty($params) ? $params[0] : null);
+        } elseif ($name === 'setLanguage') {
+            return $this->setLanguage(! empty($params) ? $params[0] : null);
+        }
+
         return $this->getService($name);
     }
+
 
     private function getService($name)
     {
