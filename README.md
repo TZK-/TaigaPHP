@@ -13,7 +13,7 @@ TaigaPHP has been written for PHP >=5.3 and and earlier versions and you need to
 
 To install the library, just run the command below:
 ```sh
-    composer require tzk/taiga-php
+composer require tzk/taiga-php
 ```
 The Library has been added into your dependencies and ready to be used.
 
@@ -34,6 +34,49 @@ $credentials = [
 ];
 
 echo TZK\Taiga\Taiga::getAuthToken($baseUrl, $credentials);
+```
+
+# Get Taiga instance
+```php
+$headers = [
+    'language' => 'fr', 
+    'x-disable-pagination' => true
+];
+
+$taiga = new TZK\Taiga\Taiga($baseUrl, $auth_token, $headers);
+```
+
+# Change configuration on the fly
+
+You can change the configuration through HTTP headers on the fly.
+
+You just need to call magic methods which has the same name as the header you wanna set prefixed by 'set'.
+
+Some headers has composed by multiple words separated by dashed (Ex. Accept-Language). 
+
+To get it works, you should write the header name without dashes and camel-cased.
+
+## Example
+
+```php
+$taiga->setAcceptLanguage('fr')->setAuthorization('Bearer ' . $auth_token);
+```
+
+To ease changing auth token or language on the fly, you can use shortcuts specified in *Taiga.php*
+
+```php
+// In Taiga.php
+protected static $HEADER_MAP = [
+    'language' => [
+        'header' => 'Accept-Language'
+    ],
+    'authToken' => [
+        'header' => 'Authorization', 
+        'prefix' => 'Bearer '
+    ]
+];
+
+$taiga->setLanguage('fr')->setAuthToken($token); // Will produce the same as above.
 ```
 
 # Register a new service
@@ -97,16 +140,10 @@ If you wanna add new services, the only thing you have to do is to create a new 
 
 TaigaPHP will automatically load the service for you and it will be accessible from a public method which has the same name as your service.
 
-# Example
+# Examples
 
 ## Get issue types
 ```php
-/* 
- * You can specify the locale to use giving language code
- * @see https://taigaio.github.io/taiga-doc/dist/api.html#object-locale-detail
- */
-$taiga = new TZK\Taiga\Taiga($baseUrl, $auth_token, 'fr');
-
 // Access with the 'issueTypes' public method
 $issues = $taiga->issueTypes()->getList(['project' => $projectId]);
 ```
