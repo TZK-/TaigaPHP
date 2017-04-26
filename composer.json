@@ -10,5 +10,8 @@
         "psr-4": {
           "TZK\\Taiga\\": "src/"
         }
+    },
+    "suggest": {
+        "tzk/taiga-laravel": "TaigaLaravel is a package used to handle the TaigaPHP library with Laravel 5.x"
     }
 }
