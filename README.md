@@ -50,11 +50,11 @@ $taiga = new TZK\Taiga\Taiga($baseUrl, $auth_token, $headers);
 
 You can change the configuration through HTTP headers on the fly.
 
-You just need to call magic methods which has the same name as the header you wanna set prefixed by 'set'.
+You just need to call magic method which has the same name as the header you wanna set prefixed by 'set'.
 
-Some headers has composed by multiple words separated by dashed (Ex. Accept-Language). 
+Some headers are composed by multiple words separated by dashed (Ex. Accept-Language). 
 
-To get it works, you should write the header name without dashes and camel-cased.
+To get it works, you should write the header name without dashes and in a camel-case format.
 
 ## Example
 
