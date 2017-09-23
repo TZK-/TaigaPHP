@@ -1,6 +1,6 @@
 <?php
 
-namespace TZK\Taiga;
+namespace TZK\Taiga\Requests;
 
 use Curl\Curl;
 use TZK\Taiga\Contracts\RequestWrapper;

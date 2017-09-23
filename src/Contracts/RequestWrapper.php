@@ -51,9 +51,4 @@ interface RequestWrapper
      * @return string
      */
     public function getErrorMessage();
-
-    /**
-     * @return boolean
-     */
-    public function hasFailed();
 }
