@@ -1,6 +1,6 @@
 <?php
 
-use TZK\Taiga\CurlRequest;
+use TZK\Taiga\Requests\CurlRequest;
 
 if (!function_exists('generate_taiga_auth_token')) {
     function generate_taiga_auth_token($baseUrl, array $credentials)
