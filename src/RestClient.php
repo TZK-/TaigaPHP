@@ -63,7 +63,7 @@ abstract class RestClient
         if ($this->isSetter($method)) {
             // Remove the 'set' word from the method name.
             $name = substr($method, strlen('set'));
-            $header = $this->getHeaderName($name);
+            $header = Header::sanitize($name);
 
             if (!isset($params[0]) || (isset($params[0]) && !trim($params[0]))) {
                 throw new RequestException("The header '$header' cannot be set because there is no value given.");
@@ -91,11 +91,11 @@ abstract class RestClient
         return $this;
     }
 
-    protected function setHeader($name, $value = null)
+    protected function setHeader($name, $value)
     {
         $header = $this->headerManager->build($name, $value);
 
-        $this->request->setHeader($header->name, $header->value);
+        $this->request->setHeader($header->getName(), $header->getValue());
 
         return $this;
     }

@@ -25,7 +25,7 @@ class CurlRequest implements RequestWrapper
         return $this->curl->response;
     }
 
-    public function setHeader($name, $value = null)
+    public function setHeader($name, $value)
     {
         $this->curl->setHeader($name, $value);
     }

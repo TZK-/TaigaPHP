@@ -31,7 +31,7 @@ interface RequestWrapper
      *
      * @return TZK\Taiga\Contracts\RequestWrapper
      */
-    public function setHeader($name, $value = null);
+    public function setHeader($name, $value);
 
     /**
      * @param bool $bool
