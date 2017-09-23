@@ -7,6 +7,9 @@
         "php-curl-class/php-curl-class": "^4.11"
     },
     "autoload": {
+        "classmap": [
+            "src/helpers.php"
+        ],
         "psr-4": {
           "TZK\\Taiga\\": "src/"
         }
