@@ -37,7 +37,7 @@ abstract class RestClient
         $this->baseUrl = $baseUrl;
 
         $this->request = $request
-            ->enableSSL();
+            ->enableSSL()
             ->setUserAgent(self::USER_AGENT);
 
         $this->setHeader('Content-Type', 'application/json');
