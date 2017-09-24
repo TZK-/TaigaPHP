@@ -3,7 +3,7 @@
 use TZK\Taiga\Header;
 
 describe('Header', function () {
-    it('sanitizes header name to a valid one', function () {
+    it('creates header with sanitized name', function () {
         $tests = [
             'accept-language' => 'accept-language',
             'Accept-Language' => 'Accept-Language',
@@ -13,7 +13,8 @@ describe('Header', function () {
         ];
 
         foreach ($tests as $expect => $toBe) {
-            expect(Header::sanitize($expect))->toBe($toBe);
+            $header = new Header($expect, 'value');
+            expect($header->getName())->toBe($toBe);
         }
     });
 });
