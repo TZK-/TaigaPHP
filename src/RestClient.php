@@ -3,9 +3,7 @@
 namespace TZK\Taiga;
 
 use BadMethodCallException;
-use Curl\Curl;
-use TZK\Taiga\Exceptions\RequestException;
-use TZK\Taiga\Exceptions\TaigaException;
+use TZK\Taiga\Contracts\RequestWrapper;
 
 abstract class RestClient
 {
@@ -35,7 +33,7 @@ abstract class RestClient
     public function __construct(RequestWrapper $request, $baseUrl)
     {
         $this->baseUrl = $baseUrl;
-
+        $this->headerManager = new HeaderManager();
         $this->request = $request
             ->enableSSL()
             ->setUserAgent(self::USER_AGENT);
@@ -64,12 +62,11 @@ abstract class RestClient
             // Remove the 'set' word from the method name.
             $name = substr($method, strlen('set'));
             $header = Header::sanitize($name);
+            $value = null;
 
-            if (!isset($params[0]) || (isset($params[0]) && !trim($params[0]))) {
-                throw new RequestException("The header '$header' cannot be set because there is no value given.");
+            if (isset($params[0])) {
+                $value = trim($params[0]);
             }
-
-            $value = trim($params[0]);
 
             return $this->setHeader($header, $value);
         }
@@ -79,7 +76,7 @@ abstract class RestClient
 
     protected function isSetter($method)
     {
-        return strpos($name, 'set') !== false;
+        return strpos($method, 'set') !== false;
     }
 
     public function setHeaders(array $headers = [])

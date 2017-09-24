@@ -36,7 +36,7 @@ class ServiceManager
         }
     }
 
-    protected function add(Service $service)
+    public function add(Service $service)
     {
         $classNameParts = explode('\\', get_class($service));
         $className = $classNameParts[count($classNameParts) - 1];
@@ -46,21 +46,21 @@ class ServiceManager
         return $this;
     }
 
-    protected function build($class)
+    public function build($class)
     {
-        if (class_exists($class)) {
+        if (!class_exists($class)) {
             throw new TaigaException("Unable to find the service class '$class'.");
         }
 
         $instance = new $class($this->client);
-        if (!$instance instanceof Service) {
+        if (!$this->isService($instance)) {
             throw new TaigaException("The class '$class' should be a ".Service::class.' instance.');
         }
 
         return $instance;
     }
 
-    private function get($name)
+    public function get($name)
     {
         if (!$this->has($name)) {
             throw new TaigaException("The service $name is not defined");
@@ -69,8 +69,13 @@ class ServiceManager
         return $this->services[$name];
     }
 
-    protected function has($name)
+    public function has($name)
     {
         return isset($this->services[$name]);
+    }
+
+    public function isService($instance)
+    {
+        return $instance instanceof Service;
     }
 }

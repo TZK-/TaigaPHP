@@ -4,14 +4,6 @@ namespace TZK\Taiga\Contracts;
 
 interface RequestWrapper
 {
-    public static $HTTP_VERBS = [
-        'GET',
-        'POST',
-        'PUT',
-        'PATCH',
-        'DELETE',
-    ];
-
     /**
      * Send a request to a specific endpoint.
      *

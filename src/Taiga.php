@@ -3,14 +3,15 @@
 namespace TZK\Taiga;
 
 use BadMethodCallException;
+use TZK\Taiga\Contracts\RequestWrapper;
 
 class Taiga extends RestClient
 {
     private $serviceManager;
 
-    public function __construct($baseUrl, $token = null, array $headers = [])
+    public function __construct(RequestWrapper $request, $baseUrl, $token = null, array $headers = [])
     {
-        parent::__construct($baseUrl, $token);
+        parent::__construct($request, $baseUrl, $token);
 
         $this->serviceManager = new ServiceManager($this);
 

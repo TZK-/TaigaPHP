@@ -8,40 +8,56 @@ class HeaderManager
 
     public function __construct()
     {
-        $this->loadHeaderShortcuts();
-    }
-
-    protected function hasPrefix($name)
-    {
-        return $this->hasShortcut($name) & !is_null($this->headerShortcuts[$name]['prefix']);
-    }
-
-    protected function hasShortcut($name)
-    {
-        return isset($this->headerShortcuts[$name]['prefix']);
-    }
-
-    protected function loadHeaderShortcuts()
-    {
-        $this->headerShortcuts = include __DIR__.'/header_shortcuts.php';
-        $this->headerShortcuts = array_change_key_case($this->headerShortcuts, CASE_LOWER);
-
-        return $this;
+        $this->headerShortcuts = $this->getHeaderShortcuts();
     }
 
     public function build($name, $value = null)
     {
-        if ($this->hasShortcut($name)) {
-            $name = $this->headerShortcuts[$name]['header'];
-
-            $prefixValue = '';
-            if ($this->shouldPrefix($name)) {
-                $prefixValue = $this->headerShortcuts[$name]['prefix'];
-            }
-
-            $value = $prefixValue.$value;
+        if ($this->isShortcut($name)) {
+            $name = $this->getName($name);
+            $value = $this->getPrefix($name).$value;
         }
 
         return new Header($name, $value);
+    }
+
+    public function getName($name)
+    {
+        $name = strtolower($name);
+
+        if (isset($this->headerShortcuts[$name]['header'])) {
+            return $this->headerShortcuts[$name]['header'];
+        }
+
+        return $name;
+    }
+
+    public function getPrefix($name)
+    {
+        $name = strtolower($name);
+
+        if (!$this->isShortcut($name)) {
+            return '';
+        }
+
+        if (!isset($this->headerShortcuts[$name]['prefix'])) {
+            return '';
+        }
+
+        return $this->headerShortcuts[$name]['prefix'];
+    }
+
+    public function isShortcut($name)
+    {
+        $name = strtolower($name);
+
+        return isset($this->headerShortcuts[$name]);
+    }
+
+    public function getHeaderShortcuts()
+    {
+        $shortcuts = include __DIR__.'/config/header_shortcuts.php';
+
+        return array_change_key_case($shortcuts, CASE_LOWER);
     }
 }
