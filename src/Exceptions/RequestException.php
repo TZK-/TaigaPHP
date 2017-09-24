@@ -2,9 +2,7 @@
 
 namespace TZK\Taiga\Exceptions;
 
-use Exception;
-
-class RequestException extends Exception
+class RequestException extends TaigaException
 {
     //
 }

@@ -15,16 +15,16 @@ class Taiga extends RestClient
 
         $this->serviceManager = new ServiceManager($this);
 
-        $this->setAuthorization($token)
-            ->setHeaders($headers);
+        $headers = array_merge($headers, ['Authorization' => $token]);
+        $this->setHeaders($headers);
     }
 
-    public function __call($name, $params = [])
+    public function __call($method, $params = [])
     {
         try {
-            return parent::__call($name, $params);
+            return parent::__call($method, $params);
         } catch (BadMethodCallException $e) {
-            return $this->serviceManager->get($name);
+            return $this->serviceManager->get($method);
         }
     }
 }

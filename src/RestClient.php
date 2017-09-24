@@ -57,26 +57,29 @@ abstract class RestClient
 
     public function __call($method, $params = [])
     {
+        if (method_exists($this, $method)) {
+            return call_user_func_array([$this, $method], $params);
+        }
+
         // If we call a method used to set HTTP headers.
-        if ($this->isSetter($method)) {
+        if ($this->isDynamicSetter($method)) {
             // Remove the 'set' word from the method name.
             $name = substr($method, strlen('set'));
-            $header = Header::sanitize($name);
             $value = null;
 
             if (isset($params[0])) {
                 $value = trim($params[0]);
             }
 
-            return $this->setHeader($header, $value);
+            return $this->setHeader($name, $value);
         }
 
-        throw new BadMethodCallException("The method '$name' does not exist.");
+        throw new BadMethodCallException("The method '$method' does not exist.");
     }
 
-    protected function isSetter($method)
+    protected function isDynamicSetter($method)
     {
-        return strpos($method, 'set') !== false;
+        return !method_exists($this, $method) && strpos($method, 'set') !== false;
     }
 
     public function setHeaders(array $headers = [])
