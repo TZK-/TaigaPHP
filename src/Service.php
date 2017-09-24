@@ -2,11 +2,18 @@
 
 namespace TZK\Taiga;
 
-use TZK\Taiga\Contracts\RequestWrapper;
 use TZK\Taiga\Exceptions\RequestException;
 
 abstract class Service
 {
+    public static $ALLOWED_HTTP_VERBS = [
+        'GET',
+        'POST',
+        'PUT',
+        'PATCH',
+        'DELETE',
+    ];
+
     /**
      * @var string
      */
@@ -27,12 +34,12 @@ abstract class Service
     {
         $method = strtoupper($method);
 
-        if (!in_array($method, RequestWrapper::$HTTP_VERBS)) {
+        if (!in_array($method, self::$ALLOWED_HTTP_VERBS)) {
             throw new RequestException(
                 sprintf(
                     "The HTTP method '%s' is not allowed. The only allowed methods are %s.",
                     $method,
-                    implode(', ', RequestWrapper::$HTTP_VERBS)
+                    implode(', ', self::$ALLOWED_HTTP_VERBS)
                 )
             );
         }

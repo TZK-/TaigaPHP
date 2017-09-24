@@ -28,16 +28,22 @@ class CurlRequest implements RequestWrapper
     public function setHeader($name, $value)
     {
         $this->curl->setHeader($name, $value);
+
+        return $this;
     }
 
     public function setUserAgent($agent)
     {
         $this->curl->setUserAgent($agent);
+
+        return $this;
     }
 
     public function enableSSL($bool = true)
     {
         $this->curl->setOpt(CURLOPT_SSL_VERIFYPEER, $bool);
+
+        return $this;
     }
 
     public function getErrorMessage()
