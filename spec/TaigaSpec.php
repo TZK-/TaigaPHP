@@ -5,8 +5,12 @@ use TZK\Taiga\Services\Users;
 use TZK\Taiga\Taiga;
 
 describe('RestClient', function () {
+    given('url', function () {
+        return 'localhost';
+    });
+
     given('client', function () {
-        return new Taiga($this->request, 'localhost');
+        return new Taiga($this->request, $this->url);
     });
 
     given('request', function () {
@@ -55,6 +59,23 @@ describe('RestClient', function () {
         foreach ($methods as $method => $toBe) {
             expect($this->client->isDynamicSetter($method))->toBe($toBe);
         }
+    });
+
+    it('sends the request with the right hostname and parameters', function () {
+        allow($this->request)
+            ->toReceive('send')
+            ->andReturn([]);
+
+        $verb = 'GET';
+        $endpoint = 'users/me';
+        $data = [];
+
+        expect($this->request)
+            ->toReceive('send')
+            ->with($this->url.'/'.$endpoint, $verb, $data)
+            ->once();
+
+        $this->client->request($verb, $endpoint, $data);
     });
 
     describe('Taiga', function () {

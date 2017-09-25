@@ -32,7 +32,7 @@ abstract class RestClient
      */
     public function __construct(RequestWrapper $request, $baseUrl)
     {
-        $this->baseUrl = $baseUrl;
+        $this->baseUrl = trim($baseUrl, '/');
         $this->headerManager = new HeaderManager();
         $this->request = $request
             ->enableSSL()
@@ -52,7 +52,7 @@ abstract class RestClient
      */
     public function request($method, $url, array $data = [])
     {
-        return $this->request->send($this->baseUrl.$url, $method, $data);
+        return $this->request->send($this->baseUrl.'/'.$url, $method, $data);
     }
 
     public function __call($method, $params = [])
