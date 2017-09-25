@@ -17,6 +17,25 @@ describe('RestClient', function () {
         return new CurlRequest();
     });
 
+    it('initializes the request', function () {
+        $request = new CurlRequest();
+
+        expect($request)
+            ->toReceive('enableSSL')
+            ->once();
+
+        expect($request)
+            ->toReceive('setUserAgent')
+            ->once();
+
+        expect($request)
+            ->toReceive('setHeader')
+            ->with('Content-Type', 'application/json')
+            ->once();
+
+        $client = new Taiga($request, $this->url);
+    });
+
     it('asks the request to pass header', function () {
         expect($this->request)->toReceive('setHeader')
             ->with('Authorization', 'token')
