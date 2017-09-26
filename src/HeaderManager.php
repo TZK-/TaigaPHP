@@ -14,8 +14,8 @@ class HeaderManager
     public function build($name, $value = null)
     {
         if ($this->isShortcut($name)) {
-            $name = $this->getName($name);
             $value = $this->getPrefix($name).$value;
+            $name = $this->getName($name);
         }
 
         return new Header($name, $value);

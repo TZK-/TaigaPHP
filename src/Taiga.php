@@ -15,7 +15,8 @@ class Taiga extends RestClient
 
         $this->serviceManager = new ServiceManager($this);
 
-        $headers = array_merge($headers, ['Authorization' => $token]);
+        $headers = array_merge($headers, ['authToken' => $token]);
+
         $this->setHeaders($headers);
     }
 
