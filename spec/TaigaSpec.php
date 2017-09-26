@@ -44,6 +44,19 @@ describe('RestClient', function () {
         $this->client->setHeader('Authorization', 'token');
     });
 
+    it('aks the request to pass list of headers', function () {
+        $headers = [
+            'Header1' => 'value1',
+            'Header2' => 'value2',
+            'Header3' => 'value3',
+        ];
+
+        expect($this->client)->toReceive('setHeader')
+            ->times(count($headers));
+
+        $this->client->setHeaders($headers);
+    });
+
     it('asserts method may be a dynamic header setter', function () {
         expect($this->client->isDynamicSetter('setHeader'))->not->toBe(true);
         expect($this->client->isDynamicSetter('setAuthorization'))->toBe(true);

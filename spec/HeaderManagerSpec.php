@@ -63,7 +63,7 @@ describe('HeaderManager', function () {
 
         $header = new Header($name, $value);
 
-        expect($this->manager->build('authToken', $value))->toEqual($header);
+        expect($this->manager->build('authToken', $authToken))->toEqual($header);
     });
 
     it('build the right header if it does not have shortcut', function () {
