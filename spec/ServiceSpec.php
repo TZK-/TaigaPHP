@@ -1,6 +1,7 @@
 <?php
 
-use TZK\Taiga\Requests\CurlRequest;
+use TZK\Taiga\Exceptions\RequestException;
+use TZK\Taiga\Requests\NullRequest;
 use TZK\Taiga\Service;
 use TZK\Taiga\Services\Users;
 use TZK\Taiga\Taiga;
@@ -11,7 +12,7 @@ describe('ServiceSpec', function () {
     });
 
     given('request', function () {
-        return new CurlRequest();
+        return new NullRequest();
     });
 
     given('client', function () {
@@ -23,10 +24,6 @@ describe('ServiceSpec', function () {
     });
 
     it('uses the right parameters to send the request', function () {
-        allow($this->client)
-            ->toReceive('request')
-            ->andReturn([]);
-
         $verb = 'GET';
         $endpoint = 'me';
         $params = [
@@ -41,5 +38,25 @@ describe('ServiceSpec', function () {
             ->once();
 
         $this->service->get($endpoint, $params, $data);
+    });
+
+    it('throws exception if sending request with not allowed verbs', function () {
+        $allowedVerbs = Service::$ALLOWED_HTTP_VERBS;
+
+        foreach ($allowedVerbs as $verb) {
+            $closure = function () use ($verb) {
+                return $this->service->$verb();
+            };
+
+            expect($closure)->not->toThrow(new RequestException());
+        }
+
+        $closure = function () {
+            $notAllowedVerb = 'not_allowed';
+
+            return $this->service->$notAllowedVerb();
+        };
+
+        expect($closure)->toThrow(new RequestException());
     });
 });
