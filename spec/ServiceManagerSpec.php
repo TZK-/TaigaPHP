@@ -2,14 +2,14 @@
 
 use Kahlan\Plugin\Monkey;
 use TZK\Taiga\Exceptions\TaigaException;
-use TZK\Taiga\Requests\CurlRequest;
+use TZK\Taiga\Requests\NullRequest;
 use TZK\Taiga\ServiceManager;
 use TZK\Taiga\Services\Users;
 use TZK\Taiga\Taiga;
 
 describe('ServiceManager', function () {
     given('client', function () {
-        return new Taiga(new CurlRequest(), 'localhost');
+        return new Taiga(new NullRequest(), 'localhost');
     });
 
     given('manager', function () {

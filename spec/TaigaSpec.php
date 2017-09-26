@@ -1,6 +1,6 @@
 <?php
 
-use TZK\Taiga\Requests\CurlRequest;
+use TZK\Taiga\Requests\NullRequest;
 use TZK\Taiga\Services\Users;
 use TZK\Taiga\Taiga;
 
@@ -14,11 +14,11 @@ describe('RestClient', function () {
     });
 
     given('request', function () {
-        return new CurlRequest();
+        return new NullRequest();
     });
 
     it('initializes the request', function () {
-        $request = new CurlRequest();
+        $request = new NullRequest();
 
         expect($request)
             ->toReceive('enableSSL')
@@ -94,10 +94,6 @@ describe('RestClient', function () {
     });
 
     it('sends the request with the right hostname and parameters', function () {
-        allow($this->request)
-            ->toReceive('send')
-            ->andReturn([]);
-
         $verb = 'GET';
         $endpoint = 'users/me';
         $data = [];
