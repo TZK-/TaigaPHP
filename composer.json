@@ -3,8 +3,8 @@
     "description": "A PHP wrapper for the Taiga.io API",
     "license": "MIT",
     "require": {
-        "php": "~5.3|~7.0",
-        "php-curl-class/php-curl-class": "^4.11"
+        "php": "~5.5|~7.0",
+        "php-curl-class/php-curl-class": "^7.4"
     },
     "require-dev": {
         "kahlan/kahlan": "^3.1"
