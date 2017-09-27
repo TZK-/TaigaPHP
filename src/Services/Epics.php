@@ -35,7 +35,7 @@ class Epics extends Service
     public function relate($epicId, $userStoryId)
     {
         return $this->post(sprintf('%s/%s', $epicId, 'related_userstories'), [], [
-            'epic'       => $epicId,
+            'epic' => $epicId,
             'user_story' => $userStoryId,
         ]);
     }
