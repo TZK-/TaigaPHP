@@ -1,6 +1,6 @@
 # TaigaPHP
 
-[![Build Status](https://travis-ci.org/TZK-/TaigaPHP.svg?branch=master)](https://travis-ci.org/TZK-/TaigaPHP)[![Latest Stable Version](https://poser.pugx.org/tzk/taiga-php/version)](https://packagist.org/packages/tzk/taiga-php) [![Total Downloads](https://poser.pugx.org/tzk/taiga-php/downloads)](https://packagist.org/packages/tzk/taiga-php) [![License](https://poser.pugx.org/tzk/taiga-php/license)](https://packagist.org/packages/tzk/taiga-php)
+[![Build Status](https://travis-ci.org/TZK-/TaigaPHP.svg?branch=master)](https://travis-ci.org/TZK-/TaigaPHP) [![Latest Stable Version](https://poser.pugx.org/tzk/taiga-php/version)](https://packagist.org/packages/tzk/taiga-php) [![Total Downloads](https://poser.pugx.org/tzk/taiga-php/downloads)](https://packagist.org/packages/tzk/taiga-php) [![License](https://poser.pugx.org/tzk/taiga-php/license)](https://packagist.org/packages/tzk/taiga-php)
 
 
 TaigaPHP is a PHP wrapper used to handle the Taiga.io API easily.
