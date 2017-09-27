@@ -21,7 +21,7 @@ class UserStories extends Service
     {
         return $this->patch(sprintf('%s/%s', 'custom-attributes-values', $userStoryId), [], [
             'attributes_values' => [$attrId => $value],
-            'version'           => 1,
+            'version' => 1,
         ]);
     }
 
