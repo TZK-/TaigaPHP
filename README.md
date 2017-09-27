@@ -1,6 +1,6 @@
 # TaigaPHP
 
-[![Latest Stable Version](https://poser.pugx.org/tzk/taiga-php/version)](https://packagist.org/packages/tzk/taiga-php) [![Total Downloads](https://poser.pugx.org/tzk/taiga-php/downloads)](https://packagist.org/packages/tzk/taiga-php) [![License](https://poser.pugx.org/tzk/taiga-php/license)](https://packagist.org/packages/tzk/taiga-php)
+[![Build Status](https://travis-ci.org/TZK-/TaigaPHP.svg?branch=master)](https://travis-ci.org/TZK-/TaigaPHP)[![Latest Stable Version](https://poser.pugx.org/tzk/taiga-php/version)](https://packagist.org/packages/tzk/taiga-php) [![Total Downloads](https://poser.pugx.org/tzk/taiga-php/downloads)](https://packagist.org/packages/tzk/taiga-php) [![License](https://poser.pugx.org/tzk/taiga-php/license)](https://packagist.org/packages/tzk/taiga-php)
 
 
 TaigaPHP is a PHP wrapper used to handle the Taiga.io API easily.
@@ -9,13 +9,12 @@ TaigaPHP is a PHP wrapper used to handle the Taiga.io API easily.
 
 # Installation (Composer)
 
-TaigaPHP has been written for PHP >=5.3 and and earlier versions and you need to ensure that the PHP CURL extension is activated and also working.
+TaigaPHP has been written and *tested* for PHP >=5.5 and and earlier versions. The only constraint is to have the cURL extension enabled.
 
 To install the library, just run the command below:
 ```sh
 composer require tzk/taiga-php
 ```
-The Library has been added into your dependencies and ready to be used.
 
 # Authentication
 
@@ -33,17 +32,19 @@ $credentials = [
     'type'    => 'normal'
 ];
 
-echo TZK\Taiga\Taiga::getAuthToken($baseUrl, $credentials);
+echo generate_taiga_auth_token($baseUrl, $credentials);
 ```
 
 # Get Taiga instance
 ```php
+$request = TZK\Taiga\CurlRequest();
+
 $headers = [
-    'language' => 'fr', 
+    'language' => 'fr',
     'x-disable-pagination' => true
 ];
 
-$taiga = new TZK\Taiga\Taiga($baseUrl, $auth_token, $headers);
+$taiga = new TZK\Taiga\Taiga($request, $baseUrl, $auth_token, $headers);
 ```
 
 # Change configuration on the fly
@@ -52,7 +53,7 @@ You can change the configuration through HTTP headers on the fly.
 
 You just need to call magic method which has the same name as the header you wanna set prefixed by 'set'.
 
-Some headers are composed by multiple words separated by dashed (Ex. Accept-Language). 
+Some headers are composed by multiple words separated by dashed (Ex. Accept-Language).
 
 To get it works, you should write the header name without dashes and in a camel-case format.
 
@@ -62,21 +63,22 @@ To get it works, you should write the header name without dashes and in a camel-
 $taiga->setAcceptLanguage('fr')->setAuthorization('Bearer ' . $auth_token);
 ```
 
-To ease changing auth token or language on the fly, you can use shortcuts specified in *Taiga.php*
+To ease changing auth token or language on the fly, you can use shortcuts specified in *src/config/header_shortcuts.php*
 
 ```php
-// In Taiga.php
-protected static $HEADER_MAP = [
+// In header_shortcuts.php
+return [
     'language' => [
-        'header' => 'Accept-Language'
+        'header' => 'Accept-Language',
     ],
     'authToken' => [
-        'header' => 'Authorization', 
-        'prefix' => 'Bearer '
-    ]
+        'header' => 'Authorization',
+        'prefix' => 'Bearer ',
+    ],
 ];
 
-$taiga->setLanguage('fr')->setAuthToken($token); // Will produce the same as above.
+// Will produce the same as the previous example.
+$taiga->setLanguage('fr')->setAuthToken($token);
 ```
 
 # Register a new service
@@ -167,8 +169,19 @@ $issues = $taiga->issues()->create(['project' => $projectId, 'subject' => 'My su
 - Users
 - UserStories
 
+# Tests
+
+The library has been tested with [Kahlan](https://github.com/kahlan/kahlan).
+If you want to run tests just run the command:
+
+```sh
+./vendor/bin/kahlan
+```
+
+At the moment, the tests are covering the main fatures of the wrapper.
+
 # Contributing
 
-TaigaPHP offers a great starting coverage, but there are some endpoints missing. 
+TaigaPHP offers a great starting coverage, but there are some endpoints/tests missing.
 
-If you use this wrapper, please share if you found bugs or added new endpoints / features by opening a new PR.
+If you use this wrapper, feel free to share if you have found bugs or added new endpoints / features or tests by opening a new PR.
