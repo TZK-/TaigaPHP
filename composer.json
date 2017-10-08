@@ -10,7 +10,7 @@
         "kahlan/kahlan": "^3.1"
     },
     "autoload": {
-        "classmap": [
+        "files": [
             "src/helpers.php"
         ],
         "psr-4": {
