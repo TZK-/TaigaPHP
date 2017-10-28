@@ -164,7 +164,7 @@ $issues = $taiga->issues()->create(['project' => $projectId, 'subject' => 'My su
 - Issue Types
 - Priorities
 - Projects
-- Resolvers
+- Resolver
 - Severities
 - Users
 - UserStories
