@@ -106,6 +106,17 @@ describe('RestClient', function () {
         $this->client->request($verb, $endpoint, $data);
     });
 
+    it('can alter the wrapper during a limited time and restore its state', function () {
+        $clonedClient = clone $this->client;
+
+        $client = $this->client->alterOnce(function ($client) {
+            $client->newProperty = 'newValue';
+        });
+
+        expect($this->client)->not->toEqual($client);
+        expect($this->client)->toEqual($clonedClient);
+    });
+
     describe('Taiga', function () {
         it('returns the right service instance if uses dynamic method with service name', function () {
             $service = 'users';

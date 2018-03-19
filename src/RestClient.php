@@ -4,6 +4,7 @@ namespace TZK\Taiga;
 
 use BadMethodCallException;
 use TZK\Taiga\Contracts\RequestWrapper;
+use Closure;
 
 abstract class RestClient
 {
@@ -53,6 +54,14 @@ abstract class RestClient
     public function request($method, $url, array $data = [])
     {
         return $this->request->send($this->baseUrl.'/'.$url, $method, $data);
+    }
+
+    public function alterOnce(Closure $alter)
+    {
+        $client = clone $this;
+        $alter($client);
+
+        return $client;
     }
 
     public function __call($method, $params = [])
