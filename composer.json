@@ -4,7 +4,7 @@
     "license": "MIT",
     "require": {
         "php": "~5.5|~7.0",
-        "php-curl-class/php-curl-class": "^7.4"
+        "php-curl-class/php-curl-class": "^8.3"
     },
     "require-dev": {
         "kahlan/kahlan": "^3.1"
