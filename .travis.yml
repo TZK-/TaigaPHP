@@ -1,4 +1,5 @@
 language: php
+dist: trusty
 
 # list any PHP version you want to test against
 php:
